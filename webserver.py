@@ -11,7 +11,38 @@ def hello():
 
 @app.route("/table")
 def table():
-    return "...table html..."
+    tabela = ''
+    for e in list(reversed(data.prices))[:10]:
+        tabela += '''
+            <tr>
+                <td>%s</td>
+                <td>%s</td>
+                <td>%s</td>
+            </tr>
+                 ''' % e
+    sablon = '''
+    <html>
+    <head>
+    <meta http-equiv="refresh" content="5">
+    <style>
+    table, th, td {
+        border: 2px dotted blue;
+    }
+    </style>
+    </head>
+    <body>
+    <table align="center">
+          <tr>
+            <th>Date</th>
+            <th>Symbol</th>
+            <th>Price</th>
+          </tr>
+          % s        
+    </table>
+    </body>
+    </html>
+    '''
+    return sablon % tabela
 
 @app.route("/graph")
 def graph():
@@ -46,5 +77,6 @@ t.setDaemon(True)
 t.start()
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
+
 
