@@ -40,8 +40,8 @@ def table():
             <H3><BR>Podatci s burza</H3>
         </TH>
     </TR>
-        <TH>Symbol</TH>
         <TH>Date</TH>
+        <TH>Symbol</TH>
         <TH>Price</TH>
     <TR>
     % s
