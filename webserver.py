@@ -5,65 +5,69 @@ import time
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def hello():
-    return "Hello Wordddld!"
+    return "Hello, World!"
+
 
 @app.route("/get_data")
 def get_data():
     data.get_data()
-    #print data.prices
     return "%s" % data.prices
+
 
 @app.route("/table")
 def table():
-    tableHTML = ""
+    table_html = ""
     for e in reversed(data.prices):
-        tableHTML += '''
+        table_html += '''
         <tr>
             <td>%s</td>
             <td>%s</td>
             <td>%s</td>
         </tr>
-        ''' %e
+        ''' % e
     tabela = '''
-    <html>
-	<head>
-	<meta http-equiv="refresh" content="5">
-	</head>
-    <body>
+<html>
+<head>
+    <meta http-equiv="refresh" content="5">
+</head>
+<body>
     <TABLE  BORDER="5"; WIDTH=50%%>
-   <TR>
-      <TH COLSPAN="3">
-         <H3><BR>Podaci s burza</H3>
-      </TH>
-   </TR>
-      <TH>Symbol</TH>
-      <TH>Date</TH>
-      <TH>Price</TH>
-   <TR>
-    %s
-   </TR>
+    <TR>
+        <TH COLSPAN="3">
+            <H3><BR>Podatci s burza</H3>
+        </TH>
+    </TR>
+        <TH>Symbol</TH>
+        <TH>Date</TH>
+        <TH>Price</TH>
+    <TR>
+    % s
+    </TR>
 </TABLE>
-    </body>
-    </html>
+</body>
+</html>
     '''
 
-    return tabela % tableHTML
+    return tabela % table_html
+
 
 @app.route("/data")
 def returndata():
     s = '''
     <html>
-	<head>
-	<meta http-equiv="refresh" content="5">
-	</head>
+    <head>
+    <meta http-equiv="refresh" content="5">
+    </head>
     <body>
     %r
     </body>
     </html>
     '''
     return s % data.prices
+
 
 @app.route("/graph")
 def graph():
@@ -84,4 +88,3 @@ t.start()
 
 if __name__ == "__main__":
     app.run(debug=True)
-
