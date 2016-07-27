@@ -71,7 +71,23 @@ def returndata():
 
 @app.route("/graph")
 def graph():
-    return "...graph html..."
+    import matplotlib
+    import matplotlib.pyplot as plt
+    #plt = matplotlib.pyplot
+    import StringIO
+    import urllib, base64
+
+    plt.plot(range(10, 20))
+    fig = plt.gcf()
+
+    imgdata = StringIO.StringIO()
+    fig.savefig(imgdata, format='png')
+    imgdata.seek(0)  # rewind the data
+
+    uri = 'data:image/png;base64,' + urllib.quote(base64.b64encode(imgdata.buf))
+    return '<img src = "%s"/>' % uri
+
+    
 
 
 def puller():
@@ -84,7 +100,6 @@ def puller():
 t = threading.Thread(target=puller)
 t.setDaemon(True)
 t.start()
-
 
 if __name__ == "__main__":
     app.run(debug=True)
