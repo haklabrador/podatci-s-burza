@@ -101,6 +101,5 @@ t = threading.Thread(target=puller)
 t.setDaemon(True)
 t.start()
 
-
 if __name__ == "__main__":
     app.run(debug=True)
