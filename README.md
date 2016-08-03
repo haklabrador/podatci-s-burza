@@ -4,8 +4,10 @@ Flask app za burzovno mešetarstvo par excellence.
 
 ## Start
 
+First start server:
+
 ```
 python webserver.py
 ```
 
-Open http://127.0.0.1:5000/ in the browser.
+Then, open http://127.0.0.1:5000/ in the browser.
