@@ -77,7 +77,16 @@ def graph():
     import StringIO
     import urllib, base64
 
-    plt.plot(range(10, 20))
+    import dateutil.parser
+    l = []
+    for e in data.prices[-20:]:
+        l.append((dateutil.parser.parse(e[0]), float(e[2])))
+    print len(l)
+
+    locs, labels = plt.xticks()
+    plt.setp(labels, rotation=-45)
+    plt.plot([e[0] for e in l], [e[1] for e in l], '*:b')
+
     fig = plt.gcf()
 
     imgdata = StringIO.StringIO()
@@ -85,16 +94,23 @@ def graph():
     imgdata.seek(0)  # rewind the data
 
     uri = 'data:image/png;base64,' + urllib.quote(base64.b64encode(imgdata.buf))
-    return '<img src = "%s"/>' % uri
-
-    
+    return '''
+    <html>
+    <head>
+    <meta http-equiv="refresh" content="1">
+    </head>
+    <body>
+    <img src = "%s"/>
+    </body>
+    </html>
+    ''' % uri
 
 
 def puller():
     while True:
         print "polling"
         data.get_data()
-        time.sleep(10)
+        time.sleep(1)
 
 
 t = threading.Thread(target=puller)
