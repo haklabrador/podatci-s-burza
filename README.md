@@ -2,7 +2,7 @@
 
 Flask app za burzovno mešetarstvo par excellence.
 
-## Start
+## Pokretanje
 
 Prvo startuj server:
 
