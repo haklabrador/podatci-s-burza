@@ -72,8 +72,8 @@ def returndata():
 @app.route("/graph")
 def graph():
     import matplotlib
+    #matplotlib.use('Cairo')
     import matplotlib.pyplot as plt
-    #plt = matplotlib.pyplot
     import StringIO
     import urllib, base64
 
@@ -81,13 +81,15 @@ def graph():
     l = []
     for e in data.prices[-20:]:
         l.append((dateutil.parser.parse(e[0]), float(e[2])))
-    print len(l)
 
-    locs, labels = plt.xticks()
-    plt.setp(labels, rotation=-45)
-    plt.plot([e[0] for e in l], [e[1] for e in l], '*:b')
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
 
-    fig = plt.gcf()
+    ax.plot([e[0] for e in l], [e[1] for e in l], '*:b')
+
+    labels = ax.get_xticklabels()
+    for l in labels:
+        l.set_rotation(-45)
 
     imgdata = StringIO.StringIO()
     fig.savefig(imgdata, format='png')
